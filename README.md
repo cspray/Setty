@@ -15,7 +15,7 @@ Enums are a very useful structure in OOP languages. They offer a more expressive
 This is the most common pattern for creating very loose enums in PHP. In all of our examples we're gonna take a look at the Compass enum.
 
  ```php
- &lt;php
+<?php
 
 abstract class Compass {
 
