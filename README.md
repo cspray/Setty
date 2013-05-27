@@ -36,6 +36,7 @@ Using this "PHP enum" is quite simple and also very expressive: `Compass::NORTH`
 Let's take a look at an example of creating the `Compass` enum using Setty code. This is just a potential API example and will be updated when the Setty API is stable.
 
 ```php
+<?php
 
 use \Setty\Builder;
 use \Setty\Enum;
@@ -76,7 +77,7 @@ enumMethod($CompassEnum::NO_DIRECTION()); // would throw an exception
 The `\Setty\Builder\EnumBuilder` class will create Setty enums and return a class of type `\Setty\Enum\<EnumName>Enum` where `<EnumName>` is the name of the enum. In the example above the `$CompassEnum` variable will be of type `\Setty\Enum\CompassEnum`. This is the class that calling code will utilize to work with the values set in the enum. All of the enum values are accessible by calling the value as if it were a static method. Each time you call this method an object of type `\Setting\Enum\<EnumName>` is returned. This type is also what should be used in your method typehints. This method will have a `__toString()` implementation that will return one of the values provided in the enum. The example above would create a `\Setty\Enum\Compass` from the call to `$CompassEnum::NORTH()`. This `Enum\Compass` object has the following structure:
 
 ```php
-&lt;php
+<?php
 
 namespace \Setty\Enum;
 
