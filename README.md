@@ -86,6 +86,7 @@ Because of this technical limitation in the language, that is not being able to 
 - All enum constant names and values **MUST** be unique string values. If either the name or value are not unique to the enum then that enum is invalid.
 - Manually building enums is *not* supported. Both the `\Setty\Enum\<EnumName>Enum` and `\Setty\Enum\<EnumName>` objects are *dynamically created using `eval()`*. Thus for them to be properly created you **MUST** create them through the `\Setty\Builder\EnumBuilder` interface.
 - All enum constant values will be cast to a string. You may pass integers and floats as constant values but they will be cast as a string. Because of our use of the `__toString` method for comparison we are making a decision to enforce stringiness on all constant values.
+- Enum names must only contain letters and underscores. No other characters, including spaces, numbers and hyphens are permitted to be in the Enum name.
 
 ## Who the hell would do this?!
 
