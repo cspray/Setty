@@ -1,7 +1,7 @@
 <?php
 /**
- * Interface that represents the primary public facing API for storing Setty enum
- * blueprints and creating Setty enum objects.
+ * Interface that represents the primary public facing API for storing \Setty\Enum
+ * blueprints and creating \Setty\Enum objects.
  *
  * @author Charles Sprayberry
  * @license See LICENSE in source root
@@ -13,11 +13,11 @@ namespace Setty\Builder;
 
 
 /**
- * An interface that stores blueprints for \Setty\Enum\AbstractEnum implementations
- * and provides a way to create implementations based on those blueprints.
+ * An interface that stores blueprints for \Setty\Enum types that are dynamically
+ * created and used to generate the appropriate typehintable objects.
  *
  * This interface is intended to work with a structured PHP array that details the
- * blueprint or configuration details for how a Setty\Enum should be created. This
+ * blueprint or configuration details for how a \Setty\Enum should be created. This
  * format should appear similar to the following:
  *
  * <code>
@@ -30,21 +30,21 @@ namespace Setty\Builder;
  * ]
  * </code>
  *
- * Ultimately this blueprint is how all Setty\Enum objects are expected to be created
+ * Ultimately this blueprint is how all \Setty\Enum objects are expected to be created
  * whether the blueprint is stored from an array or generated through the fluent
  * API available to implementations of this interface.
  */
 interface Builder {
 
     // Methods below are those used to store Enum blueprint information to create
-    // Setty enums in other parts of the system. This API is for configuring enums
+    // \Setty\Enum objects in other parts of the system. This API is for configuring enums
     // in one part of the code and using them in a different part
 
     /**
-     * Should store information appropriate for creating a Setty Enum object for
-     * use when retrieving the Enum object in later calls.
+     * Should store information appropriate for dynamically creating a \Setty\Enum
+     * object for use when retrieving the Enum object in later calls.
      *
-     * For simplicitly reasons this method should only support setting one
+     * For simplicity reasons this method should only support setting one
      * enum at a time. If the blueprint is invalid an exception should be thrown.
      *
      * Please see interface docs for more information on the appropriate format
@@ -58,19 +58,19 @@ interface Builder {
     public function storeFromArray(array $settyEnumBlueprint);
 
     /**
-     * Return a \Setty\Enum\AbstractEnum suitable for the given $enumName if it
+     * Return a \Setty\Enum suitable for the given $enumName if it
      * has been stored.
      *
      * If the $enumName has not been stored in the builder throw an exception.
      *
      * @param string $enumName
-     * @return \Setty\Enum\AbstractEnum
+     * @return \Setty\Enum
      *
      * @throw \Setty\Exception\EnumNotFoundException
      */
     public function buildStored($enumName);
 
-    // The methods below represent the fluent API used to either generate AbstractEnum
+    // The methods below represent the fluent API used to either generate \Setty\Enum
     // objects and use them where they are called to be built or to fluently store
     // enum blueprints for later building.
 
@@ -111,13 +111,13 @@ interface Builder {
     public function store();
 
     /**
-     * Should create a \Setty\Enum\AbstractEnum object and return it based on the
+     * Should create a \Setty\Enum object and return it based on the
      * blueprint configuration set in calls to enum() and constant().
      *
      * If an appropriate blueprint has not been created for the enum based on these
      * calls then an exception should be thrown.
      *
-     * @return \Setty\Enum\AbstractEnum
+     * @return \Setty\Enum
      *
      * @throw \Setty\Exception\EnumBlueprintInvalidException
      */
