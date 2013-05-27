@@ -64,10 +64,10 @@ function enumMethod(Enum\Compass $compassDirection) {
 }
 
 $CompassEnum = (new Builder\EnumBuilder())->enum('Compass')
-                                          ->const('NORTH', 'north')
-                                          ->const('SOUTH', 'south')
-                                          ->const('WEST', 'west')
-                                          ->const('EAST', 'east')
+                                          ->constant('NORTH', 'north')
+                                          ->constant('SOUTH', 'south')
+                                          ->constant('WEST', 'west')
+                                          ->constant('EAST', 'east')
                                           ->build();
 
 enumMethod($CompassEnum::NORTH()); // Returns a \Setty\Enum\Compass with __toString set to 'north'
