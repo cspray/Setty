@@ -84,7 +84,7 @@ Because of this technical limitation in the language, that is not being able to 
 
 - Enums must be given a valid unique string name that has not been utilized as an enum name already. This means both the `Setty\Enum\CompassEnum` and `Setty\Enum\Compass` names **MUST** be available.
 - All enum constant names and values **MUST** be unique string values. If either the name or value are not unique to the enum then that enum is invalid.
-- Manually building enums is *not* supported. Both the `\Setty\Enum\<EnumName>Enum` and `\Setty\Enum\<EnumName>` objects are *dynamically created using `eval()``*. Thus for them to be properly created you **MUST** create them through the `\Setty\Builder\EnumBuilder` interface.
+- Manually building enums is *not* supported. Both the `\Setty\Enum\<EnumName>Enum` and `\Setty\Enum\<EnumName>` objects are *dynamically created using `eval()`*. Thus for them to be properly created you **MUST** create them through the `\Setty\Builder\EnumBuilder` interface.
 - All enum constant values will be cast to a string. You may pass integers and floats as constant values but they will be cast as a string. Because of our use of the `__toString` method for comparison we are making a decision to enforce stringiness on all constant values.
 
 ## Who the hell would do this?!
