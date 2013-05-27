@@ -31,7 +31,7 @@ interface Enum {
      * @param array $arguments
      * @return \Setty\EnumValue
      *
-     * @throw \Setty\Exception\EnumNotFoundException
+     * @throw \Setty\Exception\EnumValueNotFoundException
      */
     public static function __callStatic($name, $arguments);
 
