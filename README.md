@@ -27,13 +27,13 @@ abstract class Compass {
 }
  ```
 
-Using this "PHP enum" is quite simple and also very expressive: `Compass::NORTH`. Ultimately there is nothing inherently wrong with this. However when using this value as a parameter to a method it can sometimes become very troublesome. Since primitive types that can be stored in a constant can't be typehinted you can ultimately pass whatever scalar value you want into these methods. Setty aims to provide a mechanism for dynamically creating PHP classes that can be used as a typehint and act as more robust enums.
+Using this "PHP enum" is quite simple and also very expressive: `Compass::NORTH`. Ultimately there is nothing inherently wrong with this. However when using this value as a parameter to a method it can sometimes become very troublesome. Since primitive types that can be stored in a constant can't be typehinted you can ultimately pass whatever scalar value you want into these methods. Setty aims to provide a mechanism for dynamically creating PHP classes that can be used as a typehint and act as more robust enums while still supporting the above use case.
 
 ## Expected Usage
 
-> Setty is still in the design and development phase and the API demonstrated below is simple a fleshing out process and may be susceptible to change.
+> Setty is still in the design and development phase and the API demonstrated below is simply a fleshing out process and may be susceptible to change.
 
-Let's take a look at an example of creating the `Compass` enum using Setty code. This is just a potential API example and will be updated when the Setty API is stable.
+Let's take a look at an example of creating the `Compass` enum using the Setty library. This is just a potential API example and will be updated when the Setty API is stable.
 
 ```php
 <?php
@@ -49,7 +49,7 @@ function enumMethod(Enum\Compass $compassDirection) {
         case Compass::SOUTH:
             // do stuff for south
             break;
-        case Compass:WEST:
+        case Compass::WEST:
             // do stuff for west
             break;
         case Compass::EAST
@@ -64,41 +64,21 @@ function enumMethod(Enum\Compass $compassDirection) {
 }
 
 $CompassEnum = (new Builder\EnumBuilder())->enum('Compass')
-                           ->const('NORTH', 'north')
-                           ->const('SOUTH', 'south')
-                           ->const('WEST', 'west')
-                           ->const('EAST', 'east')
-                           ->build();
+                                          ->const('NORTH', 'north')
+                                          ->const('SOUTH', 'south')
+                                          ->const('WEST', 'west')
+                                          ->const('EAST', 'east')
+                                          ->build();
 
 enumMethod($CompassEnum::NORTH()); // Returns a \Setty\Enum\Compass with __toString set to 'north'
 enumMethod($CompassEnum::NO_DIRECTION()); // would throw an exception
 ```
 
-The `\Setty\Builder\EnumBuilder` class will create Setty enums and return a class of type `\Setty\Enum\<EnumName>Enum` where `<EnumName>` is the name of the enum. In the example above the `$CompassEnum` variable will be of type `\Setty\Enum\CompassEnum`. This is the class that calling code will utilize to work with the values set in the enum. All of the enum values are accessible by calling the value as if it were a static method. Each time you call this method an object of type `\Setting\Enum\<EnumName>` is returned. This type is also what should be used in your method typehints. This method will have a `__toString()` implementation that will return one of the values provided in the enum. The example above would create a `\Setty\Enum\Compass` from the call to `$CompassEnum::NORTH()`. This `Enum\Compass` object has the following structure:
-
-```php
-<?php
-
-namespace \Setty\Enum;
-
-class Compass {
-
-    const NORTH = 'north';
-    const SOUTH = 'south';
-    const WEST = 'west';
-    const EAST = 'east';
-
-    public function __toString() {
-        return $this->someProperty; // will return the string appropriate to the method used to call the enum
-        // Example $CompassEnum::NORTH() would cause this to return 'north'
-    }
-
-}
-```
+The `\Setty\Builder\EnumBuilder` class will create Setty enums and return a class of type `\Setty\Enum\<EnumName>Enum` where `<EnumName>` is the name of the enum. In the example above the `$CompassEnum` variable will be of type `\Setty\Enum\CompassEnum`. This is the class that calling code will utilize to work with the values set in the enum. All of the enum values are accessible by calling the constant name as if it were a static method. Each time you call this method an object of type `\Setting\Enum\<EnumName>` is returned. This type is also what should be used in your method typehints. This method will have a `__toString()` implementation that will return one of the values provided in the enum. The example above would create a `\Setty\Enum\Compass` from the call to `$CompassEnum::NORTH()`. When you cast this object to a string you would retrieve the value 'north'.
 
 ## Technical Details
 
-As you can tell from the expected usage it is a tad bit hacky. When we typehint our methods we are using an object type to ensure type safety. However when we compare the passed enum object to our expected value we are actually comparing the string representation of the object. Because of this depending on how you are comparing the `\Setty\Enum` object to the expected value you should explicitly cast the object to a string. The reason for having this behavior is that we are striving for as "PHP enum-like" API syntax as possible. That means to compare the passed enum object we really want to use the constant syntax `Compass::NORTH`. However to support this behavior we must compare scalar values as constants don't allow anything but primitive scalar values.
+As you can tell from the expected usage it is a tad bit hacky. When we typehint our methods we are using an object type to ensure type safety. However when we compare the passed enum object to our expected value we are actually comparing the string representation of the object. Because of this depending on how you are using the `\Setty\Enum` object you should explicitly cast the object to a string. The reason for having this behavior is that we are striving for as "PHP enum-like" API syntax as possible. That means to compare the passed enum object we really want to use the constant syntax `Compass::NORTH`. However to support this behavior we must compare scalar values as constants don't allow anything but primitive scalar values.
 
 Because of this technical limitation in the language, that is not being able to provide constants of complex object types, there are also necessary limitations on the library. The following expectations **MUST** be met when using the `\Setty\Builder\EnumBuilder`. If the expectations are not met an exception will be thrown and your enum will not be created.
 
@@ -107,3 +87,6 @@ Because of this technical limitation in the language, that is not being able to 
 - Manually building enums is *not* supported. Both the `\Setty\Enum\<EnumName>Enum` and `\Setty\Enum\<EnumName>` objects are *dynamically created using `eval()``*. Thus for them to be properly created you **MUST** create them through the `\Setty\Builder\EnumBuilder` interface.
 - All enum constant values will be cast to a string. You may pass integers and floats as constant values but they will be cast as a string. Because of our use of the `__toString` method for comparison we are making a decision to enforce stringiness on all constant values.
 
+## Who the hell would do this?!
+
+I would that's who! My name is Charles Sprayberry and I occasionally write PHP code. I created [`ClassLoader`](http://github.com/cspray/ClassLoader), [`SprayFire`](http://github.com/cspray/SprayFire) and now Setty. You can read more about my thoughts on software development and PHP at my [blog where I ramble about things](http://cspray.github.io).
