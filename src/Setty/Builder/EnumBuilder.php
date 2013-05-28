@@ -1,8 +1,8 @@
 <?php
 /**
- * An implementation of \Setty\Builder\Builder that will dynamically create appropriate
- * \Setty\Enum types.
- * 
+ * Interface that represents the primary public facing API for storing \Setty\Enum
+ * blueprints and creating \Setty\Enum objects.
+ *
  * @author Charles Sprayberry
  * @license See LICENSE in source root
  * @version 0.1.0
@@ -11,10 +11,34 @@
 
 namespace Setty\Builder;
 
-use \Setty\Exception;
 
+/**
+ * An interface that stores blueprints for \Setty\Enum types that are dynamically
+ * created and used to generate the appropriate typehintable objects.
+ *
+ * This interface is intended to work with a structured PHP array that details the
+ * blueprint or configuration details for how a \Setty\Enum should be created. This
+ * format should appear similar to the following:
+ *
+ * <code>
+ * [
+ *  'name' => 'EnumName',
+ *  'constant' => [
+ *      'CONST_NAME' => 'constValue',
+ *      'OTHER_CONST' => 'otherValue'
+ *  ]
+ * ]
+ * </code>
+ *
+ * Ultimately this blueprint is how all \Setty\Enum objects are expected to be created
+ * whether the blueprint is stored from an array or generated through the fluent
+ * API available to implementations of this interface.
+ */
+interface EnumBuilder {
 
-class EnumBuilder implements Builder {
+    // Methods below are those used to store Enum blueprint information to create
+    // \Setty\Enum objects in other parts of the system. This API is for configuring enums
+    // in one part of the code and using them in a different part
 
     /**
      * Should store information appropriate for dynamically creating a \Setty\Enum
@@ -29,26 +53,9 @@ class EnumBuilder implements Builder {
      * @param array $settyEnumBlueprint
      * @return void
      *
-     * @throws \Setty\Exception\EnumBlueprintInvalidException
+     * @throw \Setty\Exception\EnumBlueprintInvalidException
      */
-    public function storeFromArray(array $settyEnumBlueprint) {
-        if (!\array_key_exists('name', $settyEnumBlueprint) || !\array_key_exists('constant', $settyEnumBlueprint)) {
-            $message = 'The array passed to %s must have \'name\' and \'constant\' keys set';
-            throw new Exception\EnumBlueprintInvalidException(\sprintf($message, __METHOD__));
-        }
-
-        $name = $settyEnumBlueprint['name'];
-        if (!\is_string($name) || empty($name)) {
-            $message = 'The value stored in the \'name\' key in the array passed to %s must be a non-empty string type';
-            throw new Exception\EnumBlueprintInvalidException(\sprintf($message, __METHOD__));
-        }
-
-        $invalidNamePattern = '#[^A-Za-z_]#';
-        if (\preg_match($invalidNamePattern, $name)) {
-            $message = 'The value stored in the \'name\' key in the array passed to %s may only have letter and underscore characters';
-            throw new Exception\EnumBlueprintInvalidException(\sprintf($message, __METHOD__));
-        }
-    }
+    public function storeFromArray(array $settyEnumBlueprint);
 
     /**
      * Return a \Setty\Enum suitable for the given $enumName if it
@@ -61,9 +68,11 @@ class EnumBuilder implements Builder {
      *
      * @throw \Setty\Exception\EnumNotFoundException
      */
-    public function buildStored($enumName) {
-        // TODO: Implement buildStored() method.
-    }
+    public function buildStored($enumName);
+
+    // The methods below represent the fluent API used to either generate \Setty\Enum
+    // objects and use them where they are called to be built or to fluently store
+    // enum blueprints for later building.
 
     /**
      * Set the $enumName to be used in successive calls to constant(), store()
@@ -72,9 +81,7 @@ class EnumBuilder implements Builder {
      * @param string $enumName
      * @return \Setty\Builder\Builder
      */
-    public function enum($enumName) {
-        // TODO: Implement enum() method.
-    }
+    public function enum($enumName);
 
     /**
      * Set a $constName and $constValue that should be applied to the $enumName
@@ -87,11 +94,9 @@ class EnumBuilder implements Builder {
      * @param string $constValue
      * @return \Setty\Builder\Builder
      *
-     * @throws \Setty\Exception\EnumBlueprintInvalidException
+     * @throw \Setty\Exception\EnumBlueprintInvalidException
      */
-    public function constant($constName, $constValue) {
-        // TODO: Implement constant() method.
-    }
+    public function constant($constName, $constValue);
 
     /**
      * Should store the configured enum blueprint after calls to enum() and constant().
@@ -103,9 +108,7 @@ class EnumBuilder implements Builder {
      *
      * @throw \Setty\Exception\EnumBlueprintInvalidException
      */
-    public function store() {
-        // TODO: Implement store() method.
-    }
+    public function store();
 
     /**
      * Should create a \Setty\Enum object and return it based on the
@@ -118,8 +121,6 @@ class EnumBuilder implements Builder {
      *
      * @throw \Setty\Exception\EnumBlueprintInvalidException
      */
-    public function build() {
-        // TODO: Implement build() method.
-    }
+    public function build();
 
 }

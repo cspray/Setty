@@ -1,7 +1,7 @@
 <?php
 /**
  * Interface that represents an object that is used by calling code to create the
- * appropriate typehintable objects storing the enum's values.
+ * appropriate \Setty\EnumValue objects that can be used as typehints.
  * 
  * @author Charles Sprayberry
  * @license See LICENSE in source root
@@ -34,5 +34,20 @@ interface Enum {
      * @throw \Setty\Exception\EnumValueNotFoundException
      */
     public static function __callStatic($name, $arguments);
+
+    /**
+     * Should return the NON-NAMESPACED enum name that this object represents.
+     *
+     * @return string
+     */
+    public static function NAME();
+
+    /**
+     * Should return an associative array of [constName => constValue] that are
+     * valid for this enum.
+     *
+     * @return array
+     */
+    public static function CONSTANTS();
 
 }
