@@ -11,6 +11,6 @@
 
 namespace Setty\Exception;
 
-use \InvalidArgumentException;
+use \LogicException;
 
-class EnumNotFoundException extends InvalidArgumentException  {}
+class EnumNotFoundException extends LogicException  {}
