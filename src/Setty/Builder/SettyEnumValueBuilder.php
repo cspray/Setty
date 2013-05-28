@@ -59,7 +59,7 @@ namespace Setty\\Enum\\UserEnum;
 use \\Setty;
 use \\Setty\\Enum;
 
-class {$enumType} extends Enum\\BaseEnumValue {}
+class {$enumType} extends Enum\\AbstractEnumValue {}
 PHP_CODE;
     }
 }
