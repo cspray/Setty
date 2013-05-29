@@ -59,4 +59,46 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\YesNoMaybe', $YesNoMaybe);
     }
 
+    /**
+     * Ensures that if we create an enum with the same type and set value that the
+     * same object is returned.
+     *
+     * @covers \Setty\Builder\SettyEnumValueBuilder::buildEnumValue
+     */
+    public function testCreatingSameEnumWithSameValueTwiceResultsInSameObject() {
+        $Builder = new Builder\SettyEnumValueBuilder();
+
+        $Compass = $Builder->buildEnumValue('Compass', $this->compassConst, 'EAST');
+        $this->assertInstanceOf('\\Setty\\EnumValue', $Compass);
+        $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\Compass', $Compass);
+
+        $SecondCompass = $Builder->buildEnumValue('Compass', $this->compassConst, 'EAST');
+        $this->assertInstanceOf('\\Setty\\EnumValue', $SecondCompass);
+        $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\Compass', $SecondCompass);
+
+        $this->assertSame($Compass, $SecondCompass);
+    }
+
+    /**
+     * Ensures that if we create the same enum type with different set constants
+     * that the objects returned are not identical.
+     *
+     * @covers \Setty\Builder\SettyEnumValueBuilder::buildEnumValue
+     */
+    public function testCreatingSameEnumWithDifferentValueTwiceResultsInDifferentObject() {
+        $Builder = new Builder\SettyEnumValueBuilder();
+
+        $East = $Builder->buildEnumValue('Compass', $this->compassConst, 'EAST');
+        $this->assertInstanceOf('\\Setty\\EnumValue', $East);
+        $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\Compass', $East);
+
+        $West = $Builder->buildEnumValue('Compass', $this->compassConst, 'WEST' );
+        $this->assertInstanceOf('\\Setty\\EnumValue', $West);
+        $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\Compass', $West);
+
+        $this->assertNotSame($East, $West, 'East and West are the same objects but should not be');
+    }
+
+    
+
 }
