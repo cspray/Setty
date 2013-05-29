@@ -39,7 +39,7 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
         $Compass = $Builder->buildEnumValue('Compass', $this->compassConst, 'NORTH');
 
         $this->assertInstanceOf('\\Setty\\EnumValue', $Compass);
-        $this->assertInstanceOf('\\Setty\Enum\\UserEnum\\Compass', $Compass);
+        $this->assertInstanceOf('\\Setty\Enum\\Compass', $Compass);
     }
 
     /**
@@ -52,11 +52,11 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
 
         $Compass = $Builder->buildEnumValue('Compass', $this->compassConst, 'WEST');
         $this->assertInstanceOf('\\Setty\\EnumValue', $Compass);
-        $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\Compass', $Compass);
+        $this->assertInstanceOf('\\Setty\\Enum\\Compass', $Compass);
 
         $YesNoMaybe = $Builder->buildEnumValue('YesNoMaybe', ['YES' => 'y', 'NO' => 'n', 'MAYBE' => 'm'], 'YES');
         $this->assertInstanceOf('\\Setty\\EnumValue', $YesNoMaybe);
-        $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\YesNoMaybe', $YesNoMaybe);
+        $this->assertInstanceOf('\\Setty\\Enum\\YesNoMaybe', $YesNoMaybe);
     }
 
     /**
@@ -70,11 +70,11 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
 
         $Compass = $Builder->buildEnumValue('Compass', $this->compassConst, 'EAST');
         $this->assertInstanceOf('\\Setty\\EnumValue', $Compass);
-        $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\Compass', $Compass);
+        $this->assertInstanceOf('\\Setty\\Enum\\Compass', $Compass);
 
         $SecondCompass = $Builder->buildEnumValue('Compass', $this->compassConst, 'EAST');
         $this->assertInstanceOf('\\Setty\\EnumValue', $SecondCompass);
-        $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\Compass', $SecondCompass);
+        $this->assertInstanceOf('\\Setty\\Enum\\Compass', $SecondCompass);
 
         $this->assertSame($Compass, $SecondCompass);
     }
@@ -90,11 +90,11 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
 
         $East = $Builder->buildEnumValue('Compass', $this->compassConst, 'EAST');
         $this->assertInstanceOf('\\Setty\\EnumValue', $East);
-        $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\Compass', $East);
+        $this->assertInstanceOf('\\Setty\\Enum\\Compass', $East);
 
         $West = $Builder->buildEnumValue('Compass', $this->compassConst, 'WEST' );
         $this->assertInstanceOf('\\Setty\\EnumValue', $West);
-        $this->assertInstanceOf('\\Setty\\Enum\\UserEnum\\Compass', $West);
+        $this->assertInstanceOf('\\Setty\\Enum\\Compass', $West);
 
         $this->assertNotSame($East, $West, 'East and West are the same objects but should not be');
     }
