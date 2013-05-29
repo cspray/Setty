@@ -9,7 +9,7 @@
  * @since 0.1.0
  */
 
-namespace Setty\Enum;
+namespace Setty;
 
 use \Setty;
 
