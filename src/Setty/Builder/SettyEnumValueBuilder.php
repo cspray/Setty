@@ -11,7 +11,8 @@
 
 namespace Setty\Builder;
 
-use Setty;
+use \Setty;
+use \Setty\Exception;
 
 /**
  * Generates dynamically created classes, that is classes created at runtime, that
@@ -60,12 +61,13 @@ class SettyEnumValueBuilder implements EnumValueBuilder {
      * @return mixed
      *
      * @throws \Setty\Exception\EnumValueNotFoundException
+     * @throws \Setty\Exception\EnumBlueprintInvalidException
      */
     public function buildEnumValue($enumType, array $constants, $setConstant) {
         $enumClass = "\\Setty\\Enum\\UserEnum\\$enumType";
         if (!$this->isEnumStored($enumType, $setConstant)) {
             if (!\class_exists($enumClass)) {
-                eval($this->getEnumValueCode($enumType));
+                eval($this->getEnumValueCode($enumType, $constants));
             }
             $this->storeEnumValue(new $enumClass($setConstant), $enumType, $setConstant);
         }
@@ -128,16 +130,35 @@ class SettyEnumValueBuilder implements EnumValueBuilder {
      * object.
      *
      * @param string $enumType
+     * @param array $constants
      * @return string
+     *
+     * @throws \Setty\Exception\EnumBlueprintInvalidException
      */
-    protected function getEnumValueCode($enumType) {
+    protected function getEnumValueCode($enumType, array $constants) {
+        $constCode = '';
+        $constForm = "const %s = '%s';\n";
+        $storedValues = [];
+        foreach ($constants as $constName => $constValue) {
+            if (\in_array($constValue, $storedValues)) {
+                $message = 'The enum, %s, has a duplicate constant value: %s';
+                throw new Exception\EnumBlueprintInvalidException(\sprintf($message, $enumType, $constValue));
+            }
+            $storedValues[] = $constValue;
+            $constCode .= \sprintf($constForm, $constName, $constValue);
+        }
+
         return <<<PHP_CODE
 namespace Setty\\Enum\\UserEnum;
 
 use \\Setty;
 use \\Setty\\Enum;
 
-class {$enumType} extends Enum\\AbstractEnumValue {}
+class {$enumType} extends Enum\\AbstractEnumValue {
+
+{$constCode}
+
+}
 PHP_CODE;
     }
 }
