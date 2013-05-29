@@ -85,7 +85,7 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
      *
      * @covers \Setty\Builder\SettyEnumValueBuilder::buildEnumValue
      */
-    public function testCreatingSameEnumWithDifferentValueTwiceResultsInDifferentObject() {
+    public function testCreatingSameEnumWithDifferentValueResultsInDifferentObjectInstance() {
         $Builder = new Builder\SettyEnumValueBuilder();
 
         $East = $Builder->buildEnumValue('Compass', $this->compassConst, 'EAST');
@@ -99,6 +99,34 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
         $this->assertNotSame($East, $West, 'East and West are the same objects but should not be');
     }
 
-    
+    /**
+     * Ensures that the defined constants and values are set and available when
+     * creating an EnumValue.
+     *
+     * @covers \Setty\Builder\SettyEnumValueBuilder::buildEnumValue
+     */
+    public function testCreatingEnumSetsAppropriateConstantsAndValues() {
+        $Builder = new Builder\SettyEnumValueBuilder();
+
+        $Compass = $Builder->buildEnumValue('Compass', $this->compassConst, 'NORTH');
+
+        $actualConstants = (new \ReflectionObject($Compass))->getConstants();
+        $this->assertSame($this->compassConst, $actualConstants, 'Created EnumValue does not have the appropriate constants');
+    }
+
+    /**
+     * Ensures that if a constant name is defined twice then an exception will
+     * be thrown.
+     *
+     * @covers \Setty\Builder\SettyEnumValueBuilder::buildEnumValue
+     */
+    public function testCreatingEnumWithDuplicateConstantValuesThrowsException() {
+        $Builder = new Builder\SettyEnumValueBuilder();
+
+        $expectedException = '\\Setty\\Exception\\EnumBlueprintInvalidException';
+        $expectedMessage = 'The enum, InvalidEnum, has a duplicate constant value: dupe';
+        $this->setExpectedException($expectedException, $expectedMessage);
+        $EnumValue = $Builder->buildEnumValue('InvalidEnum', ['ONE' => 'dupe', 'TWO' => 'dupe'], 'ONE');
+    }
 
 }
