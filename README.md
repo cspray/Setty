@@ -2,6 +2,11 @@
 
 Setty is an educational proof of concept library to allow typesafe enums in PHP. This library is purely a proof of concept and is not intended to be used in a production environment. **This codebase makes use of eval() statement and could be susceptible to code injection if used improperly!**. You have been warned! Use at your own risk.
 
+## Release Info
+
+Current Stable Version: *In Development*
+Master Branch (Stable Development): [![Build Status](https://travis-ci.org/cspray/Setty.png?branch=master)](https://travis-ci.org/cspray/Setty)
+
 ## Requirements
 
 - PHP 5.4+
