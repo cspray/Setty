@@ -21,7 +21,7 @@ Setty is an educational proof of concept library to allow typesafe enums in PHP.
 
 ## Why typesafe enums?
 
-Enums are a very useful structure in OOP languages. They offer a more expressive way of handling "magic values" and can be an extremely useful tool whwen dealing with a set of constant data associated to each other. In languages that offer more OOP support there is the concept of typesafe enums. What this means is that you can typehint the enum in your methods and only values from that enum may be passed in. Unfortunately this type of behavior is unsupported natively in PHP. This lack of support is due to the pattern in which "PHP enums" are created and the limits on class constants being scalar values.
+Enums are a very useful structure in programming languages. They offer a more expressive way of handling "magic values" and can be an extremely useful tool when dealing with a set of constant data tightly associated to each other. In languages that offer more OOP support there is the concept of typesafe enums. What this means is that you can typehint the enum in your methods and only values from that enum may be passed in. Unfortunately this type of behavior is unsupported natively in PHP. This lack of support is due to the pattern in which "PHP enums" are created and the limits on class constants being scalar values.
 
 This is the most common pattern for creating enums in PHP. In all of our examples we're gonna take a look at the Compass enum.
 
