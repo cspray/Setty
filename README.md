@@ -19,6 +19,12 @@ Setty is an educational proof of concept library to allow typesafe enums in PHP.
 - Provide a means to create objects that will dynamically generate the appropriate enum type.
 - Provide a means to hook into the processing of the system to allow other libraries finely grained access to Setty generated code.
 
+## Resources
+
+- Home page: http://cspray.github.io/Setty
+- Source code: http://github.com/cspray/Setty
+- Issues: http://github.com/cspray/Setty/issues
+
 ## Why typesafe enums?
 
 Enums are a very useful structure in programming languages. They offer a more expressive way of handling "magic values" and can be an extremely useful tool when dealing with a set of constant data tightly associated to each other. In languages that offer more OOP support there is the concept of typesafe enums. What this means is that you can typehint the enum in your methods and only values from that enum may be passed in. Unfortunately this type of behavior is unsupported natively in PHP. This lack of support is due to the pattern in which "PHP enums" are created and the limits on class constants being scalar values.
@@ -50,20 +56,34 @@ Let's take a look at an example of creating the `Compass` enum using the Setty l
 <?php
 
 use \Setty\Builder;
-use \Setty\Enum\UserEnum;
+use \Setty\Enum;
 
-function enumMethod(UserEnum\Compass $compassDirection) {
+function enumMethodObjectCompare(Enum\Compass $compassDirection) {
+    if (Enum\CompassEnum::NORTH() === $compassDirection) {
+        echo 'North Pole here we come!';
+    } else if (Enum\CompassEnum::SOUTH() === $compassDirection) {
+        echo 'To the sun down South';
+    } else if (Enum\CompassEnum::EAST() === $compassDirection) {
+        echo 'Going to the big cities in the East';
+    } else if (Enum\CompassEnum::WEST() === $compassDirection) {
+        echo 'Sun and fun in the West';
+    } else {
+        echo 'We should never get here as $compassDirection will always match above checks';
+    }
+}
+
+function enumMethodStringCompare(Enum\Compass $compassDirection) {
     switch ((string) $compassDirection) {
-        case UserEnum\Compass::NORTH:
+        case Enum\Compass::NORTH:
             echo 'going north';
             break;
-        case UserEnum\Compass::SOUTH:
+        case Enum\Compass::SOUTH:
             echo 'going south';
             break;
-        case UserEnum\Compass::WEST:
+        case Enum\Compass::WEST:
             echo 'going west';
             break;
-        case UserEnum\Compass::EAST
+        case Enum\Compass::EAST
             echo 'going east';
             break;
         case default:
@@ -81,14 +101,12 @@ $CompassEnum = (new Builder\EnumBuilder())->enum('Compass')
                                           ->constant('EAST', 'east')
                                           ->build();
 
-enumMethod($CompassEnum::NORTH());
-// echos 'going north'
-
-enumMethod($CompassEnum::NO_DIRECTION());
-// throws exception, enumMethod is never invoked
+enumMethodStringCompare($CompassEnum::NORTH()); // echos 'going north'
+enumMethodObjectCompare(CompassEnum::SOUTH()); // echos 'To the sun down South'
+enumMethodStringCompare(CompassEnum::NO_DIRECTION()); // throws exception, enumMethodStringCompare is never invoked
 ```
 
-The `\Setty\Builder\EnumBuilder::build()` will return a class of type `\Setty\Enum\BaseEnum` which implements the `\Setty\Enum` interface. This is the class that calling code will utilize to work with the values set in the enum. All of the enum values are accessible by calling the constant name as if it were a static method. Each time you call this method an object of type `\Setting\Enum\UserEnum\<EnumName>` is returned; this dynamically created object will implement the `\Setty\EnumValue` interface. This type is also what should be used in your method typehints. This object will have a `__toString()` implementation that will return one of the values provided in the enum. The example above would create a `\Setty\Enum\UserEnum\Compass` from the call to `$CompassEnum::NORTH()`. When you cast this object to a string you would retrieve the value 'north' which would match `\Setty\Enum\UserEnum\Compass::NORTH`.
+The `\Setty\Builder\EnumBuilder::build()` will return a class of type `\Setty\Enum\<EnumName>Enum` which implements the `\Setty\Enum` interface. This is the class that calling code will utilize to work with the values set in the enum. All of the enum values are accessible by calling the constant name as if it were a static method. Each time you call this method an object of type `\Setting\Enum\<EnumName>` is returned; this dynamically created object will implement the `\Setty\EnumValue` interface. This type is also what should be used in your method typehints. This object will have a `__toString()` implementation that will return one of the values provided in the enum. The example above would create a `\Setty\Enum\UserEnum\Compass` from the call to `$CompassEnum::NORTH()`. When you cast this object to a string you would retrieve the value 'north' which would match `\Setty\Enum\UserEnum\Compass::NORTH`.
 
 It is important to keep in mind though that the ``$compassDirection`` argument passed is a true object and other functionality can be composed or extended with this object.
 
