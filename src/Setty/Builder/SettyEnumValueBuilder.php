@@ -11,6 +11,8 @@
 
 namespace Setty\Builder;
 
+use Setty;
+
 /**
  * Generates dynamically created classes, that is classes created at runtime, that
  * implement \Setty\EnumValue.
@@ -20,6 +22,29 @@ namespace Setty\Builder;
  *
  */
 class SettyEnumValueBuilder implements EnumValueBuilder {
+
+    /**
+     * Stores a multidimensional array holding implemented Enum\AbstractEnumValue
+     * implementations.
+     *
+     * The following format should be followed for this property:
+     *
+     * [
+     *      'EnumType' => [
+     *          'CONST_NAME' => <Setty\EnumValue>,
+     *          'OTHER_CONST' => <Setty\EnumValue>
+     *      ]
+     *
+     * ]
+     *
+     * This property is here to ensure that if there are multiple calls to create
+     * EnumType::CONST_NAME that we return the same object without having to create
+     * it over again. We also do this to ensure that if calling code chooses to
+     * compare objects we can do so correctly.
+     *
+     * @property array
+     */
+    protected $createdEnumValues = [];
 
     /**
      * Should generate a \Setty\Enum\UserEnum\$enumType object that has available
@@ -38,11 +63,64 @@ class SettyEnumValueBuilder implements EnumValueBuilder {
      */
     public function buildEnumValue($enumType, array $constants, $setConstant) {
         $enumClass = "\\Setty\\Enum\\UserEnum\\$enumType";
-        if (!\class_exists($enumClass)) {
-            eval($this->getEnumValueCode($enumType));
+        if (!$this->isEnumStored($enumType, $setConstant)) {
+            if (!\class_exists($enumClass)) {
+                eval($this->getEnumValueCode($enumType));
+            }
+            $this->storeEnumValue(new $enumClass($setConstant), $enumType, $setConstant);
         }
 
-        return new $enumClass($setConstant);
+        return $this->fetchStoredEnum($enumType, $setConstant);
+    }
+
+    /**
+     * Determines if a Setty\EnumValue has already been stored for the passed
+     * $enumType and $constName.
+     *
+     * @param string $enumType
+     * @param string $constName
+     * @return bool
+     */
+    protected function isEnumStored($enumType, $constName) {
+        if (isset($this->createdEnumValues[$enumType]) && \is_array($this->createdEnumValues[$enumType])) {
+            if (isset($this->createdEnumValues[$enumType][$constName])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Will store a created Setty\EnumValue in the appropriate format to work
+     * with the other enum storing and retrieval internal methods.
+     *
+     * @param \Setty\EnumValue $EnumValue
+     * @param string $enumType
+     * @param string $constName
+     */
+    protected function storeEnumValue(Setty\EnumValue $EnumValue, $enumType, $constName) {
+        if (!isset($this->createdEnumValues[$enumType])) {
+            $this->createdEnumValues[$enumType] = [];
+        }
+
+        $this->createdEnumValues[$enumType][$constName] = $EnumValue;
+    }
+
+    /**
+     * Returns the \Setty\EnumValue associated to the $enumType and $constName or
+     * false if no object exists.
+     *
+     * @param string $enumType
+     * @param string $constName
+     * @return mixed
+     */
+    protected function fetchStoredEnum($enumType, $constName) {
+        if (!$this->isEnumStored($enumType, $constName)) {
+            return false;
+        }
+
+        return $this->createdEnumValues[$enumType][$constName];
     }
 
     /**
