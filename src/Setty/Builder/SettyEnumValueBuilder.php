@@ -64,7 +64,7 @@ class SettyEnumValueBuilder implements EnumValueBuilder {
      * @throws \Setty\Exception\EnumBlueprintInvalidException
      */
     public function buildEnumValue($enumType, array $constants, $setConstant) {
-        $enumClass = "\\Setty\\Enum\\UserEnum\\$enumType";
+        $enumClass = "\\Setty\\Enum\\$enumType";
         if (!$this->isEnumStored($enumType, $setConstant)) {
             if (!\class_exists($enumClass)) {
                 eval($this->getEnumValueCode($enumType, $constants));
@@ -149,12 +149,11 @@ class SettyEnumValueBuilder implements EnumValueBuilder {
         }
 
         return <<<PHP_CODE
-namespace Setty\\Enum\\UserEnum;
+namespace Setty\\Enum;
 
 use \\Setty;
-use \\Setty\\Enum;
 
-class {$enumType} extends Enum\\AbstractEnumValue {
+final class {$enumType} extends Setty\AbstractEnumValue {
 
 {$constCode}
 
