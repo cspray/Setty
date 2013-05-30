@@ -10,6 +10,8 @@
 
 - Refactor `Setty\Builder\SettyEnumValueBuilder` too allow more user control and configuration over the created `\Setty\EnumValue` objects
 - Sandbox the use of `eval()` to make the libraries use of this construct to be safer
+- Refactor validation of storing a `Setty\Enums` configuration into a more robust solution
+- Provide a fluent interface for creating objects
 
 ## 0.3.0
 
