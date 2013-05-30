@@ -12,7 +12,10 @@ $Loader->setAutoloader();
 $ValueBuilder = new \Setty\Builder\SettyEnumValueBuilder();
 $EnumBuilder = new \Setty\Builder\SettyEnumBuilder($ValueBuilder);
 
-$EnumBuilder->storeFromArray(['name' => 'Compass', 'constant' => ['NORTH' => 'n', 'SOUTH' => 's', 'EAST' => 'e', 'WEST' => 'w']]);
+$EnumBuilder->storeFromArray([
+    'name' => 'Compass',
+    'constant' => ['NORTH' => 'n', 'SOUTH' => 's', 'EAST' => 'e', 'WEST' => 'w']
+]);
 $Enum = $EnumBuilder->buildStored('Compass');
 
 var_dump($Enum::NORTH());
