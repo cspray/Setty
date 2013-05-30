@@ -18,6 +18,18 @@ use \PHPUnit_Framework_TestCase;
 class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
 
     /**
+     * An array of constants used to generate the Compass enum example.
+     *
+     * @property array
+     */
+    protected $compassConst = [
+        'NORTH' => 'north',
+        'SOUTH' => 'south',
+        'EAST' => 'east',
+        'WEST' => 'west'
+    ];
+
+    /**
      * Ensures that if a 'name' and 'constant' key are not set in the blue print
      * array passed to EnumBuilder::storeFromArray that the appropriate exception
      * and message is thrown.
@@ -267,9 +279,38 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
         $EnumBuilder->storeFromArray($blueprint);
 
         $expectedException = '\\Setty\\Exception\\EnumBlueprintInvalidException';
-        $expectedMessage = 'The enum type passed, Valid, has already been created';
+        $expectedMessage = 'The enum type passed, Valid, has already been stored';
         $this->setExpectedException($expectedException, $expectedMessage);
         $EnumBuilder->storeFromArray($blueprint);
+    }
+
+    /**
+     * Ensures that we get an exception if we attempt to create an enum that
+     * has not been stored.
+     *
+     * @covers \Setty\Builder\SettyEnumBuilder::buildStored
+     */
+    public function testBuildingEnumThatHasNotBeenStored() {
+        $Builder = $this->getSettyEnumBuilder();
+
+        $expectedException = '\\Setty\\Exception\\EnumNotFoundException';
+        $expectedMessage = 'The enum type passed to Setty\\Builder\\SettyEnumBuilder::buildStored, NotStored, could not be found';
+        $this->setExpectedException($expectedException, $expectedMessage);
+        $Builder->buildStored('NotStored');
+    }
+
+    /**
+     * Adding test that we create the appropriate enum type.
+     *
+     * @covers \Setty\Builder\SettyEnumBuilder::buildStored
+     */
+    public function testBuildingCompassExampleIsRightType() {
+        $Builder = $this->getSettyEnumBuilder();
+        $Builder->storeFromArray(['name' => 'Compass', 'constant' => $this->compassConst]);
+
+        $CompassEnum = $Builder->buildStored('Compass');
+        $this->assertInstanceOf('\\Setty\\Enum', $CompassEnum);
+        $this->assertInstanceOf('\\Setty\\Enum\\CompassEnum', $CompassEnum);
     }
 
     /**
@@ -278,8 +319,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      * @return \Setty\Builder\SettyEnumBuilder
      */
     public function getSettyEnumBuilder() {
-        return new Builder\SettyEnumBuilder();
+        $EnumValueBuilder = $this->getMock('\\Setty\\Builder\\EnumValueBuilder');
+        return new Builder\SettyEnumBuilder($EnumValueBuilder);
     }
-
 
 }
