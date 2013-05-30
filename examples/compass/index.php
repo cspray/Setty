@@ -16,6 +16,7 @@ $EnumBuilder->storeFromArray(['name' => 'Compass', 'constant' => ['NORTH' => 'n'
 $Enum = $EnumBuilder->buildStored('Compass');
 
 var_dump($Enum::NORTH());
+var_dump((string) \Setty\Enum\CompassEnum::NORTH());
 var_dump($Enum::SOUTH());
 var_dump($Enum::EAST());
 var_dump($Enum::WEST());
