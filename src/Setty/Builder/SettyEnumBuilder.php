@@ -13,7 +13,6 @@ namespace Setty\Builder;
 
 use \Setty\Exception;
 
-
 class SettyEnumBuilder implements EnumBuilder {
 
     /**
@@ -24,7 +23,22 @@ class SettyEnumBuilder implements EnumBuilder {
      *
      * @property array
      */
-    protected $createdEnumTypes = [];
+    protected $storedEnumTypes = [];
+
+    /**
+     * Used to create the appropriate \Setty\EnumValue objects representing the
+     * constants for the created \Setty\Enum
+     *
+     * @property EnumValueBuilder
+     */
+    protected $EnumValueBuilder;
+
+    /**
+     * @param \Setty\Builder\EnumValueBuilder $EnumValueBuilder
+     */
+    public function __construct(EnumValueBuilder $EnumValueBuilder) {
+        $this->EnumValueBuilder = $EnumValueBuilder;
+    }
 
     /**
      * Should store information appropriate for dynamically creating a \Setty\Enum
@@ -59,8 +73,8 @@ class SettyEnumBuilder implements EnumBuilder {
             throw new Exception\EnumBlueprintInvalidException(\sprintf($message, __METHOD__));
         }
 
-        if (\array_key_exists($name, $this->createdEnumTypes)) {
-            $message = 'The enum type passed, %s, has already been created';
+        if (\array_key_exists($name, $this->storedEnumTypes)) {
+            $message = 'The enum type passed, %s, has already been stored';
             throw new Exception\EnumBlueprintInvalidException(\sprintf($message, $name));
         }
 
@@ -91,7 +105,7 @@ class SettyEnumBuilder implements EnumBuilder {
             $validConstants[$constName] = $constValue;
         }
 
-        $this->createdEnumTypes[$name] = $validConstants;
+        $this->storedEnumTypes[$name] = $validConstants;
     }
 
     /**
@@ -100,13 +114,30 @@ class SettyEnumBuilder implements EnumBuilder {
      *
      * If the $enumName has not been stored in the builder throw an exception.
      *
-     * @param string $enumName
+     * @param string $enumType
      * @return \Setty\Enum
      *
-     * @throw \Setty\Exception\EnumNotFoundException
+     * @throws \Setty\Exception\EnumNotFoundException
      */
-    public function buildStored($enumName) {
-        // TODO: Implement buildStored() method.
+    public function buildStored($enumType) {
+        if (!\array_key_exists($enumType, $this->storedEnumTypes)) {
+            $message = 'The enum type passed to %s, %s, could not be found';
+            throw new Exception\EnumNotFoundException(\sprintf($message, __METHOD__, $enumType));
+        }
+
+        eval($this->getEnumCode($enumType));
+        $enumClass = "\\Setty\\Enum\\{$enumType}Enum";
+        return new $enumClass([]);
+    }
+
+    protected function getEnumCode($enumType) {
+        return <<<PHP_CODE
+namespace Setty\\Enum;
+
+use \\Setty;
+
+final class {$enumType}Enum extends Setty\\AbstractEnum {}
+PHP_CODE;
     }
 
 }
