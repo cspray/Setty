@@ -94,35 +94,42 @@ function enumMethodStringCompare(Enum\Compass $compassDirection) {
 
 }
 
-$CompassEnum = (new Builder\EnumBuilder())->enum('Compass')
-                                          ->constant('NORTH', 'north')
-                                          ->constant('SOUTH', 'south')
-                                          ->constant('WEST', 'west')
-                                          ->constant('EAST', 'east')
-                                          ->build();
+$Builder = new Builder\SettyEnumBuilder();
+$Builder->storeFromArray([
+    'name' => 'Compass',
+    'constants' => [
+        'NORTH' => 'n',
+        'SOUTH' => 's',
+        'EAST', 'e',
+        'WEST', 'w'
+    ]
+]);
+$CompassEnum = $Builder->buildStored('Compass');
 
 enumMethodStringCompare($CompassEnum::NORTH()); // echos 'going north'
-enumMethodObjectCompare(CompassEnum::SOUTH()); // echos 'To the sun down South'
-enumMethodStringCompare(CompassEnum::NO_DIRECTION()); // throws exception, enumMethodStringCompare is never invoked
+enumMethodObjectCompare(Enum\CompassEnum::SOUTH()); // echos 'To the sun down South', note static call to Enum\CompassEnum (dynamically created)
+enumMethodStringCompare(Enum\CompassEnum::NO_DIRECTION()); // throws exception, enumMethodStringCompare is never invoked
 ```
 
 The `\Setty\Builder\EnumBuilder::build()` will return a class of type `\Setty\Enum\<EnumName>Enum` which implements the `\Setty\Enum` interface. This is the class that calling code will utilize to work with the values set in the enum. All of the enum values are accessible by calling the constant name as if it were a static method. Each time you call this method an object of type `\Setting\Enum\<EnumName>` is returned; this dynamically created object will implement the `\Setty\EnumValue` interface. This type is also what should be used in your method typehints. This object will have a `__toString()` implementation that will return one of the values provided in the enum. The example above would create a `\Setty\Enum\UserEnum\Compass` from the call to `$CompassEnum::NORTH()`. When you cast this object to a string you would retrieve the value 'north' which would match `\Setty\Enum\UserEnum\Compass::NORTH`.
 
-It is important to keep in mind though that the ``$compassDirection`` argument passed is a true object and other functionality can be composed or extended with this object.
+It is important to keep in mind though that the `$compassDirection` argument passed is a true object and other functionality can be composed or extended with this object.
 
 ## Technical Details
 
-As you can tell from the expected usage it is a tad bit "hacky". When we typehint our methods we are using an object type to ensure type safety. However when we compare the passed enum object to our expected value we are actually comparing the string representation of the object. Because of this depending on how you are using the `\Setty\EnumValue` objects you should explicitly cast the object to a string. The reason for having this behavior is that we are striving for as "PHP enum-like" API syntax as possible. That means to compare the passed enum object we really want to use the constant syntax `Compass::NORTH`. However to support this behavior we must compare scalar values as, again, constants don't allow anything but primitive scalar values.
+As you can tell from the expected usage it can be a tad bit hacky when comparing as a string. When we typehint our methods we are using an object type to ensure type safety. However when we compare the passed enum object to our expected value we are actually comparing the string representation of the object. Because of this depending on how you are using the `\Setty\EnumValue` objects you should explicitly cast the object to a string. The reason for having this behavior is that we are striving for as "PHP enum-like" API syntax as possible. That means to compare the passed enum object we really want to use the constant syntax `Compass::NORTH`. However to support this behavior we must compare scalar values as, again, constants don't allow anything but primitive scalar values.
 
-Because of this technical limitation in the language there are also necessary limitations on the library. The following expectations **MUST** be met when using the `\Setty\Builder\EnumBuilder`. If the expectations are not met an exception will be thrown and your enum will not be created.
+However, when we compare using objects we have far more integrity that we are truly dealing with the appropriate type. Each `\Setty\EnumValue` returned from `\Setty\Enum::CONSTANT()` call is a `final` class that has been dynamically created. A class is created for each individual constant associated to that enum. A private variable within that dynamically created class stores the value from the list of constants that the instance represents. As such each `\Setty\EnumValue` can be compared as both a string and an object. Comparing as an object can be useful when 'duck type' hinting; you pass along values dynamically and compare as an object to see if it is truly a `\Setty\Enum\<EnumName>` object.
 
-- Enums must be given a valid unique string name that has not been utilized as an enum or class name already. This means in our example the `Setty\Enum\UserEnum\Compass` name **MUST** be available for use by the library.
-- All enum constant names and values **MUST** be unique, non-empty string values. If either the name or value are not unique to the enum or the name or value are empty then that enum is invalid.
+Because of some of the technical limitation in the language and our intended goals there are also necessary limitations on the library. The following expectations **MUST** be met when using the `\Setty\Builder\EnumBuilder`. If the expectations are not met an exception will be thrown and your enum will not be created.
+
 - Manually building enums is **NOT** supported. The `\Setty\Enum\UserEnum\<EnumName>` objects are *dynamically created using `eval()`*. Thus for them to be properly created you **MUST** create them using the provided Setty API.
-- All enum constant values will be cast to a string. You may pass integers and floats as constant values but they will be cast as a string. Because of our use of the `__toString` method for comparison we are making a decision to enforce stringiness on all constant values.
-- Enum names must only contain letters and underscores. No other characters, including spaces, numbers and hyphens are permitted to be in the Enum name.
-- Enum constant names may contain letters, numbers and underscores. No other characters, including spaces and hyphens are permitted to be in the Enum constant name.
-- Enum constant values may contain any unique to the enum, non-empty string value.
+- Enums **MUST** be given a valid unique string name with the appropriate types to be available for creation by the library. In our example this would mean the types `\Setty\Enum\CompassEnum` and `\Setty\Enum\Compass` **MUST** not be types already included into script processing.
+- If the expected class names exist they **MUST** implement the `\Setty\Enum` and `\Setty\EnumValue` interfaces, respectively.
+- All enum constant names and values **MUST** be unique to the enum, non-empty string values. If either the name or value are not unique to the enum or the name or value are empty then that enum is invalid.
+- All enum constant values **MUST** be a string. You **MUST** not pass non-stringy values. The decision to enforce stringiness on constant values was to ease development for the initial prototype. This issue may be reevaluated in future releases.
+- Enum names **MUST** only contain letters and underscores. No other characters, including spaces, numbers and hyphens are permitted to be in the Enum name.
+- Enum constant names **MUST** only contain letters, numbers and underscores. No other characters, including spaces and hyphens are permitted to be in the Enum constant name.
 
 ## Who the hell would do this?!
 
