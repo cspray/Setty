@@ -21,9 +21,9 @@ interface EnumValueBuilder {
      * If the $setConstant does not exist as a *key* in $constants then an exception
      * should be thrown.
      *
-     * @param  $enumType
-     * @param $constName
-     * @param $constValue
+     * @param string $enumType
+     * @param array $constants
+     * @param string $setConstant
      * @return mixed
      *
      * @throws \Setty\Exception\EnumValueNotFoundException
