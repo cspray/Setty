@@ -123,7 +123,7 @@ However, when we compare using objects we have far more integrity that we are tr
 
 Because of some of the technical limitation in the language and our intended goals there are also necessary limitations on the library. The following expectations **MUST** be met when using the `\Setty\Builder\EnumBuilder`. If the expectations are not met an exception will be thrown and your enum will not be created.
 
-- Manually building enums is **NOT** supported. The `\Setty\Enum\UserEnum\<EnumName>` objects are *dynamically created using `eval()`*. Thus for them to be properly created you **MUST** create them using the provided Setty API.
+- Manually building enums is **NOT** supported. The `\Setty\Enum\<EnumName>Enum` and `\Setty\Enum\<EnumName>` objects are *dynamically created using `eval()`*. Thus for them to be properly created you **MUST** create them using the provided Setty API.
 - Enums **MUST** be given a valid unique string name with the appropriate types to be available for creation by the library. In our example this would mean the types `\Setty\Enum\CompassEnum` and `\Setty\Enum\Compass` **MUST** not be types already included into script processing.
 - If the expected class names exist they **MUST** implement the `\Setty\Enum` and `\Setty\EnumValue` interfaces, respectively.
 - All enum constant names and values **MUST** be unique to the enum, non-empty string values. If either the name or value are not unique to the enum or the name or value are empty then that enum is invalid.
