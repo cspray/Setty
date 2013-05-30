@@ -328,8 +328,6 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
     /**
      * Ensures that if we call methods with appropriate names we get the appropriate
      * value back.
-     *
-     * @covers \Setty\AbstractEnum::__callStatic
      */
     public function testEnsureThatCallingStaticMethodReturnsRightValues() {
         $Builder = $this->getSettyEnumBuilder();
