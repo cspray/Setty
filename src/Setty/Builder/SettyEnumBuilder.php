@@ -125,18 +125,56 @@ class SettyEnumBuilder implements EnumBuilder {
             throw new Exception\EnumNotFoundException(\sprintf($message, __METHOD__, $enumType));
         }
 
-        eval($this->getEnumCode($enumType));
         $enumClass = "\\Setty\\Enum\\{$enumType}Enum";
-        return new $enumClass([]);
+        if (!\class_exists($enumClass)) {
+            eval($this->getEnumCode($enumType));
+        }
+
+        $constants = $this->storedEnumTypes[$enumType];
+        $EnumValues = [];
+        foreach($constants as $constant => $value) {
+            $EnumValues[$constant] = $this->EnumValueBuilder->buildEnumValue($enumType, $constants, $value);
+        }
+
+        return new $enumClass($EnumValues);
     }
 
+    /**
+     * @param string $enumType
+     * @return string
+     */
     protected function getEnumCode($enumType) {
         return <<<PHP_CODE
 namespace Setty\\Enum;
 
 use \\Setty;
 
-final class {$enumType}Enum extends Setty\\AbstractEnum {}
+final class {$enumType}Enum implements Setty\\Enum {
+
+    protected static \$values = [];
+
+    final public function __construct(array \$values) {
+        static::\$values = \$values;
+    }
+
+    public static function __callStatic(\$name, \$arguments) {
+        if (empty(static::\$values)) {
+            \$message = 'The appropriate values have not been set for this enum';
+            throw new \BadMethodCallException(\$message);
+        }
+
+        return static::\$values[\$name];
+    }
+
+    public static function NAME() {
+        // TODO: Implement NAME() method.
+    }
+
+    public static function CONSTANTS() {
+        return static::\$values;
+    }
+
+}
 PHP_CODE;
     }
 
