@@ -15,6 +15,9 @@ use \Setty\Exception;
 
 class SettyEnumBuilder implements EnumBuilder {
 
+    const NAME_KEY = 'name';
+    const CONSTANTS_KEY = 'constants';
+
     /**
      * An array of strings that represent the enum types this builder has created.
      *
@@ -56,12 +59,12 @@ class SettyEnumBuilder implements EnumBuilder {
      * @throws \Setty\Exception\EnumBlueprintInvalidException
      */
     public function storeFromArray(array $settyEnumBlueprint) {
-        if (!\array_key_exists('name', $settyEnumBlueprint) || !\array_key_exists('constant', $settyEnumBlueprint)) {
+        if (!\array_key_exists(self::NAME_KEY, $settyEnumBlueprint) || !\array_key_exists(self::CONSTANTS_KEY, $settyEnumBlueprint)) {
             $message = 'The array passed to %s must have \'name\' and \'constant\' keys set';
             throw new Exception\EnumBlueprintInvalidException(\sprintf($message, __METHOD__));
         }
 
-        $name = $settyEnumBlueprint['name'];
+        $name = $settyEnumBlueprint[self::NAME_KEY];
         if (!\is_string($name) || empty($name)) {
             $message = 'The value stored in the \'name\' key in the array passed to %s must be a non-empty string type';
             throw new Exception\EnumBlueprintInvalidException(\sprintf($message, __METHOD__));
@@ -78,7 +81,7 @@ class SettyEnumBuilder implements EnumBuilder {
             throw new Exception\EnumBlueprintInvalidException(\sprintf($message, $name));
         }
 
-        $constant = $settyEnumBlueprint['constant'];
+        $constant = $settyEnumBlueprint[self::CONSTANTS_KEY];
         if (!\is_array($constant) || empty($constant)) {
             $message = 'The value stored in the \'constant\' key in the array passed to %s must be a non-empty array type';
             throw new Exception\EnumBlueprintInvalidException(\sprintf($message, __METHOD__));

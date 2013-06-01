@@ -58,8 +58,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringInvalidBlueprintNameWithCorrectKeys() {
         $emptyBlueprint = [
-            'name' => null,
-            'constant' => [
+            Builder\SettyEnumBuilder::NAME_KEY => null,
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => [
                 'VALID' => 'constants'
             ]
         ];
@@ -80,8 +80,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringEmptyBlueprintNameWithCorrectKeys() {
         $emptyBlueprint = [
-            'name' => '',
-            'constant' => [
+            Builder\SettyEnumBuilder::NAME_KEY => '',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => [
                 'VALID' => 'constants'
             ]
         ];
@@ -102,8 +102,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringBlueprintNameWithInvalidCharacters() {
         $invalidBlueprint = [
-            'name' => 'I have spaces and other {} invalid ch4rs!',
-            'constant' => [
+            Builder\SettyEnumBuilder::NAME_KEY => 'I have spaces and other {} invalid ch4rs!',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => [
                 'VALID' => 'constants'
             ]
         ];
@@ -124,8 +124,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringBlueprintWithInvalidConstantType() {
         $invalidBlueprint = [
-            'name' => 'Valid',
-            'constant' => 'I am not an array'
+            Builder\SettyEnumBuilder::NAME_KEY => 'Valid',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => 'I am not an array'
         ];
 
         $EnumBuilder = $this->getSettyEnumBuilder();
@@ -144,8 +144,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringBlueprintWithEmptyConstant() {
         $invalidBlueprint = [
-            'name' => 'Valid',
-            'constant' => []
+            Builder\SettyEnumBuilder::NAME_KEY => 'Valid',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => []
         ];
 
         $EnumBuilder = $this->getSettyEnumBuilder();
@@ -164,8 +164,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringBlueprintWithInvalidConstantName() {
         $invalidBlueprint = [
-            'name' => 'Valid',
-            'constant' => [
+            Builder\SettyEnumBuilder::NAME_KEY => 'Valid',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => [
                 'I have invalid space characters and other !!! things $& that make this a bad key...besides the length' => 'I am valid though!'
             ]
         ];
@@ -186,8 +186,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringBlueprintWithConstantArrayNumericallyIndexed() {
         $invalidBlueprint = [
-            'name' => 'Valid',
-            'constant' => [
+            Builder\SettyEnumBuilder::NAME_KEY => 'Valid',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => [
                 'I am the value not the key, I am valid!'
             ]
         ];
@@ -207,8 +207,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringBlueprintConstantWithEmptyStringKeyName() {
         $invalidBlueprint = [
-            'name' => 'Valid',
-            'constant' => [
+            Builder\SettyEnumBuilder::NAME_KEY => 'Valid',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => [
                 '' => 'still valid value'
             ]
         ];
@@ -228,8 +228,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringBlueprintWithConstantValueThatIsNotString() {
         $invalidBlueprint = [
-            'name' => 'Valid',
-            'constant' => [
+            Builder\SettyEnumBuilder::NAME_KEY => 'Valid',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => [
                 'VALID' => []
             ]
         ];
@@ -248,8 +248,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringBlueprintWithConstantValueEmptyString() {
         $invalidBlueprint = [
-            'name' => 'Valid',
-            'constant' => [
+            Builder\SettyEnumBuilder::NAME_KEY => 'Valid',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => [
                 'VALID' => ''
             ]
         ];
@@ -269,8 +269,8 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testStoringBlueprintWithDuplicateEnumNames() {
         $blueprint = [
-            'name' => 'Valid',
-            'constant' => [
+            Builder\SettyEnumBuilder::NAME_KEY => 'Valid',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => [
                 'VALID' => 'foo'
             ]
         ];
@@ -306,7 +306,10 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testBuildingCompassExampleIsRightType() {
         $Builder = $this->getSettyEnumBuilder();
-        $Builder->storeFromArray(['name' => 'Compass', 'constant' => $this->compassConst]);
+        $Builder->storeFromArray([
+            Builder\SettyEnumBuilder::NAME_KEY => 'Compass',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => $this->compassConst
+        ]);
 
         $CompassEnum = $Builder->buildStored('Compass');
         $this->assertInstanceOf('\\Setty\\Enum', $CompassEnum);
@@ -332,7 +335,10 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
     public function testEnsureThatCallingStaticMethodReturnsRightValues() {
         $Builder = $this->getSettyEnumBuilder();
 
-        $Builder->storeFromArray(['name' => 'Compass' ,'constant' => $this->compassConst]);
+        $Builder->storeFromArray([
+            Builder\SettyEnumBuilder::NAME_KEY => 'Compass' ,
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => $this->compassConst
+        ]);
         $Enum = $Builder->buildStored('Compass');
 
         $this->assertInstanceOf('\\Setty\\Enum', $Enum);
@@ -352,7 +358,10 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
     public function testCreatingEnumSetsAppropriateConstantsAndValues() {
         $Builder = $this->getSettyEnumBuilder();
 
-        $Builder->storeFromArray(['name' => 'Compass', 'constant' => $this->compassConst]);
+        $Builder->storeFromArray([
+            Builder\SettyEnumBuilder::NAME_KEY => 'Compass',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => $this->compassConst
+        ]);
         $Compass = $Builder->buildStored('Compass');
 
         $actualConstants = (new \ReflectionObject($Compass))->getConstants();
@@ -371,7 +380,13 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
         $expectedException = '\\Setty\\Exception\\EnumBlueprintInvalidException';
         $expectedMessage = 'The enum, YesNo, has a duplicate constant value: dupe';
         $this->setExpectedException($expectedException, $expectedMessage);
-        $Builder->storeFromArray(['name' => 'YesNo', 'constant' => ['YES' => 'dupe', 'NO' => 'dupe']]);
+        $Builder->storeFromArray([
+            Builder\SettyEnumBuilder::NAME_KEY => 'YesNo',
+            Builder\SettyEnumBuilder::CONSTANTS_KEY => [
+                'YES' => 'dupe',
+                'NO' => 'dupe'
+            ]
+        ]);
     }
 
     /**
