@@ -17,18 +17,6 @@ use \PHPUnit_Framework_TestCase;
 class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
 
     /**
-     * An array of constants used to generate the Compass enum example.
-     *
-     * @property array
-     */
-    protected $compassConst = [
-        'NORTH' => 'north',
-        'SOUTH' => 'south',
-        'EAST' => 'east',
-        'WEST' => 'west'
-    ];
-
-    /**
      * Ensures that the appropriate type is created when using the Builder\SettyEnumValueBuilder
      * implementation.
      *
@@ -36,7 +24,7 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
      */
     public function testCreatingEnumReturnsAppropriateType() {
         $Builder = new Builder\SettyEnumValueBuilder();
-        $Compass = $Builder->buildEnumValue('Compass', $this->compassConst, 'NORTH');
+        $Compass = $Builder->buildEnumValue('Compass', 'north');
 
         $this->assertInstanceOf('\\Setty\\EnumValue', $Compass);
         $this->assertInstanceOf('\\Setty\Enum\\Compass', $Compass);
@@ -50,11 +38,11 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
     public function testCreateMultipleEnumsDoesNotResultInNameCollision() {
         $Builder = new Builder\SettyEnumValueBuilder();
 
-        $Compass = $Builder->buildEnumValue('Compass', $this->compassConst, 'WEST');
+        $Compass = $Builder->buildEnumValue('Compass', 'WEST');
         $this->assertInstanceOf('\\Setty\\EnumValue', $Compass);
         $this->assertInstanceOf('\\Setty\\Enum\\Compass', $Compass);
 
-        $YesNoMaybe = $Builder->buildEnumValue('YesNoMaybe', ['YES' => 'y', 'NO' => 'n', 'MAYBE' => 'm'], 'YES');
+        $YesNoMaybe = $Builder->buildEnumValue('YesNoMaybe', 'YES');
         $this->assertInstanceOf('\\Setty\\EnumValue', $YesNoMaybe);
         $this->assertInstanceOf('\\Setty\\Enum\\YesNoMaybe', $YesNoMaybe);
     }
@@ -68,11 +56,11 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
     public function testCreatingSameEnumWithSameValueTwiceResultsInSameObject() {
         $Builder = new Builder\SettyEnumValueBuilder();
 
-        $Compass = $Builder->buildEnumValue('Compass', $this->compassConst, 'EAST');
+        $Compass = $Builder->buildEnumValue('Compass', 'EAST');
         $this->assertInstanceOf('\\Setty\\EnumValue', $Compass);
         $this->assertInstanceOf('\\Setty\\Enum\\Compass', $Compass);
 
-        $SecondCompass = $Builder->buildEnumValue('Compass', $this->compassConst, 'EAST');
+        $SecondCompass = $Builder->buildEnumValue('Compass', 'EAST');
         $this->assertInstanceOf('\\Setty\\EnumValue', $SecondCompass);
         $this->assertInstanceOf('\\Setty\\Enum\\Compass', $SecondCompass);
 
@@ -88,11 +76,11 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
     public function testCreatingSameEnumWithDifferentValueResultsInDifferentObjectInstance() {
         $Builder = new Builder\SettyEnumValueBuilder();
 
-        $East = $Builder->buildEnumValue('Compass', $this->compassConst, 'EAST');
+        $East = $Builder->buildEnumValue('Compass', 'EAST');
         $this->assertInstanceOf('\\Setty\\EnumValue', $East);
         $this->assertInstanceOf('\\Setty\\Enum\\Compass', $East);
 
-        $West = $Builder->buildEnumValue('Compass', $this->compassConst, 'WEST' );
+        $West = $Builder->buildEnumValue('Compass', 'WEST' );
         $this->assertInstanceOf('\\Setty\\EnumValue', $West);
         $this->assertInstanceOf('\\Setty\\Enum\\Compass', $West);
 
@@ -101,32 +89,18 @@ class SettyEnumValueBuilderTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Ensures that the defined constants and values are set and available when
-     * creating an EnumValue.
+     * creating an Enum.
      *
      * @covers \Setty\Builder\SettyEnumValueBuilder::buildEnumValue
      */
-    public function testCreatingEnumSetsAppropriateConstantsAndValues() {
-        $Builder = new Builder\SettyEnumValueBuilder();
+    public function testCreatingEnumValuesDoesNotCreateConstants() {
+        $Builder = new \Setty\Builder\SettyEnumValueBuilder();
 
-        $Compass = $Builder->buildEnumValue('Compass', $this->compassConst, 'NORTH');
+
+        $Compass = $Builder->buildEnumValue('Compass', 'WEST');
 
         $actualConstants = (new \ReflectionObject($Compass))->getConstants();
-        $this->assertSame($this->compassConst, $actualConstants, 'Created EnumValue does not have the appropriate constants');
-    }
-
-    /**
-     * Ensures that if a constant name is defined twice then an exception will
-     * be thrown.
-     *
-     * @covers \Setty\Builder\SettyEnumValueBuilder::buildEnumValue
-     */
-    public function testCreatingEnumWithDuplicateConstantValuesThrowsException() {
-        $Builder = new Builder\SettyEnumValueBuilder();
-
-        $expectedException = '\\Setty\\Exception\\EnumBlueprintInvalidException';
-        $expectedMessage = 'The enum, InvalidEnum, has a duplicate constant value: dupe';
-        $this->setExpectedException($expectedException, $expectedMessage);
-        $EnumValue = $Builder->buildEnumValue('InvalidEnum', ['ONE' => 'dupe', 'TWO' => 'dupe'], 'ONE');
+        $this->assertSame([], $actualConstants, 'Created EnumValue has constants but should not');
     }
 
 }

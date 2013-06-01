@@ -102,6 +102,11 @@ class SettyEnumBuilder implements EnumBuilder {
                 throw new Exception\EnumBlueprintInvalidException(\sprintf($message, __METHOD__));
             }
 
+            if (\in_array($constValue, $validConstants)) {
+                $message = 'The enum, %s, has a duplicate constant value: %s';
+                throw new Exception\EnumBlueprintInvalidException(\sprintf($message, $name, $constValue));
+            }
+
             $validConstants[$constName] = $constValue;
         }
 
@@ -127,13 +132,13 @@ class SettyEnumBuilder implements EnumBuilder {
 
         $enumClass = "\\Setty\\Enum\\{$enumType}Enum";
         if (!\class_exists($enumClass)) {
-            eval($this->getEnumCode($enumType));
+            eval($this->getEnumCode($enumType, $this->storedEnumTypes[$enumType]));
         }
 
         $constants = $this->storedEnumTypes[$enumType];
         $EnumValues = [];
         foreach($constants as $constant => $value) {
-            $EnumValues[$constant] = $this->EnumValueBuilder->buildEnumValue($enumType, $constants, $value);
+            $EnumValues[$constant] = $this->EnumValueBuilder->buildEnumValue($enumType, $value);
         }
 
         return new $enumClass($EnumValues);
@@ -141,15 +146,30 @@ class SettyEnumBuilder implements EnumBuilder {
 
     /**
      * @param string $enumType
+     * @param array $constants
      * @return string
      */
-    protected function getEnumCode($enumType) {
+    protected function getEnumCode($enumType, array $constants) {
+        $constCode = '';
+        $constForm = "const %s = '%s';\n";
+        $storedValues = [];
+        foreach ($constants as $constName => $constValue) {
+            if (\in_array($constValue, $storedValues)) {
+                $message = 'The enum, %s, has a duplicate constant value: %s';
+                throw new Exception\EnumBlueprintInvalidException(\sprintf($message, $enumType, $constValue));
+            }
+            $storedValues[] = $constValue;
+            $constCode .= \sprintf($constForm, $constName, $constValue);
+        }
+
         return <<<PHP_CODE
 namespace Setty\\Enum;
 
 use \\Setty;
 
 final class {$enumType}Enum implements Setty\\Enum {
+
+    {$constCode}
 
     protected static \$values = [];
 

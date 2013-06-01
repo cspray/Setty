@@ -14,20 +14,15 @@ namespace Setty\Builder;
 interface EnumValueBuilder {
 
     /**
-     * Should generate a \Setty\Enum\UserEnum\$enumType object that has available
-     * as class constants the key/values set in $constants; when the returned type
-     * is evaluated as a string it will be seen as $setConstant.
-     *
-     * If the $setConstant does not exist as a *key* in $constants then an exception
-     * should be thrown.
+     * Should generate a \Setty\Enum\UserEnum\$enumType object that when cast to string
+     * will be seen as $setConstant.
      *
      * @param string $enumType
-     * @param array $constants
      * @param string $setConstant
      * @return mixed
      *
      * @throws \Setty\Exception\EnumValueNotFoundException
      */
-    public function buildEnumValue($enumType, array $constants, $setConstant);
+    public function buildEnumValue($enumType, $setConstant);
 
 }

@@ -63,11 +63,11 @@ class SettyEnumValueBuilder implements EnumValueBuilder {
      * @throws \Setty\Exception\EnumValueNotFoundException
      * @throws \Setty\Exception\EnumBlueprintInvalidException
      */
-    public function buildEnumValue($enumType, array $constants, $setConstant) {
+    public function buildEnumValue($enumType, $setConstant) {
         $enumClass = "\\Setty\\Enum\\$enumType";
         if (!$this->isEnumStored($enumType, $setConstant)) {
             if (!\class_exists($enumClass)) {
-                eval($this->getEnumValueCode($enumType, $constants));
+                eval($this->getEnumValueCode($enumType));
             }
             $this->storeEnumValue(new $enumClass($setConstant), $enumType, $setConstant);
         }
@@ -130,34 +130,19 @@ class SettyEnumValueBuilder implements EnumValueBuilder {
      * object.
      *
      * @param string $enumType
-     * @param array $constants
      * @return string
      *
      * @throws \Setty\Exception\EnumBlueprintInvalidException
      */
-    protected function getEnumValueCode($enumType, array $constants) {
-        $constCode = '';
-        $constForm = "const %s = '%s';\n";
-        $storedValues = [];
-        foreach ($constants as $constName => $constValue) {
-            if (\in_array($constValue, $storedValues)) {
-                $message = 'The enum, %s, has a duplicate constant value: %s';
-                throw new Exception\EnumBlueprintInvalidException(\sprintf($message, $enumType, $constValue));
-            }
-            $storedValues[] = $constValue;
-            $constCode .= \sprintf($constForm, $constName, $constValue);
-        }
+    protected function getEnumValueCode($enumType) {
+
 
         return <<<PHP_CODE
 namespace Setty\\Enum;
 
 use \\Setty;
 
-final class {$enumType} extends Setty\AbstractEnumValue {
-
-{$constCode}
-
-}
+final class {$enumType} extends Setty\AbstractEnumValue {}
 PHP_CODE;
     }
 }

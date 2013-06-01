@@ -74,16 +74,16 @@ function enumMethodObjectCompare(Enum\Compass $compassDirection) {
 
 function enumMethodStringCompare(Enum\Compass $compassDirection) {
     switch ((string) $compassDirection) {
-        case Enum\Compass::NORTH:
+        case Enum\CompassEnum::NORTH:
             echo 'going north';
             break;
-        case Enum\Compass::SOUTH:
+        case Enum\CompassEnum::SOUTH:
             echo 'going south';
             break;
-        case Enum\Compass::WEST:
+        case Enum\CompassEnum::WEST:
             echo 'going west';
             break;
-        case Enum\Compass::EAST
+        case Enum\CompassEnum::EAST
             echo 'going east';
             break;
         case default:
@@ -115,7 +115,7 @@ The `\Setty\Builder\EnumBuilder::build()` will return a class of type `\Setty\En
 
 ## Technical Details
 
-As you can tell from the expected usage it can be a tad bit hacky when comparing as a string. When we typehint our methods we are using an object type to ensure type safety. However when we compare the passed enum object to our expected value we are actually comparing the string representation of the object. Because of this depending on how you are using the `\Setty\EnumValue` objects you should explicitly cast the object to a string. The reason for having this behavior is that we are striving for as "PHP enum-like" API syntax as possible. That means to compare the passed enum object we really want to use the constant syntax `Compass::NORTH`. However to support this behavior we must compare scalar values as, again, constants don't allow anything but primitive scalar values.
+As you can tell from the expected usage it can be a tad bit hacky when comparing as a string. When we typehint our methods we are using an object type to ensure type safety. However when we compare the passed enum object to our expected value we are actually comparing the string representation of the object. Because of this depending on how you are using the `\Setty\EnumValue` objects you should explicitly cast the object to a string. The reason for having this behavior is that we are striving for as "PHP enum-like" API syntax as possible. That means to compare the passed enum object we really want to use the constant syntax `CompassEnum::NORTH`. However to support this behavior we must compare scalar values as, again, constants don't allow anything but primitive scalar values.
 
 However, when we compare using objects we have far more integrity that we are truly dealing with the appropriate type. Each `\Setty\EnumValue` returned from `\Setty\Enum::CONSTANT()` call is a `final` class that has been dynamically created. A class is created for each individual constant associated to that enum. A private variable within that dynamically created class stores the value from the list of constants that the instance represents. As such each `\Setty\EnumValue` can be compared as both a string and an object. Comparing as an object can be useful when 'duck type' hinting; you pass along values dynamically and compare as an object to see if it is truly a `\Setty\Enum\<EnumName>` object.
 

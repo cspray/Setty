@@ -344,6 +344,37 @@ class SettyEnumBuilderTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Ensures that the defined constants and values are set and available when
+     * creating an Enum.
+     *
+     * @covers \Setty\Builder\SettyEnumBuilder::buildStored
+     */
+    public function testCreatingEnumSetsAppropriateConstantsAndValues() {
+        $Builder = $this->getSettyEnumBuilder();
+
+        $Builder->storeFromArray(['name' => 'Compass', 'constant' => $this->compassConst]);
+        $Compass = $Builder->buildStored('Compass');
+
+        $actualConstants = (new \ReflectionObject($Compass))->getConstants();
+        $this->assertSame($this->compassConst, $actualConstants, 'Created EnumValue does not have the appropriate constants');
+    }
+
+    /**
+     * Ensures that if a constant name is defined twice then an exception will
+     * be thrown.
+     *
+     * @covers \Setty\Builder\SettyEnumBuilder::buildStored
+     */
+    public function testCreatingEnumWithDuplicateConstantValuesThrowsException() {
+        $Builder = $this->getSettyEnumBuilder();
+
+        $expectedException = '\\Setty\\Exception\\EnumBlueprintInvalidException';
+        $expectedMessage = 'The enum, YesNo, has a duplicate constant value: dupe';
+        $this->setExpectedException($expectedException, $expectedMessage);
+        $Builder->storeFromArray(['name' => 'YesNo', 'constant' => ['YES' => 'dupe', 'NO' => 'dupe']]);
+    }
+
+    /**
      * Creates an instance of the object under test.
      *
      * @return \Setty\Builder\SettyEnumBuilder
