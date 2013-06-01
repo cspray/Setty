@@ -1,9 +1,0 @@
-## YAML Template.
----
-language: php
-branches:
-  only:
-    - master
-php:
-  - 5.4
-script: phpunit --configuration ./tests/SettyTest/travis_configuration.xml

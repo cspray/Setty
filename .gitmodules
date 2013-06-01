@@ -1,3 +1,0 @@
-[submodule "src/ClassLoader"]
-	path = src/ClassLoader
-	url = git://github.com/cspray/ClassLoader.git
