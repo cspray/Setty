@@ -1,0 +1,91 @@
+#container {
+    width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 1em;
+}
+
+#header {
+    margin-top: .5em;
+}
+
+#welcome-panel {
+    text-align: center;
+    padding: 2em;
+}
+
+#welcome-panel > h1 {
+    font-size: 128px;
+    line-height: normal;
+    margin-top: 0;
+}
+
+#welcome-panel > .description {
+    font-size: 32px;
+    line-height: normal;
+}
+
+.introduction-tag {
+    font-style: italic;
+    font-size: 150%;
+}
+
+#section-blurbs .blurb {
+    width: 27%;
+    height: 150px;
+    padding: 1em;
+}
+
+#section-blurbs .blurb .title {
+    text-align: center;
+    font-size: 200%;
+}
+
+#section-blurbs .blurb .description {
+    font-size: 175%;
+    line-height: normal;
+    text-align: center;
+    margin-top: 1em;
+    color: rgb(150, 150, 150);
+}
+
+#section-blurbs .blurb:hover .description {
+    color: inherit;
+}
+
+#section-blurbs .middle-blurb {
+    margin: auto;
+}
+
+#section-blurbs a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.block {
+    display: block;
+}
+
+.strike-through {
+    text-decoration: line-through;
+}
+
+.content {
+    font-size: 16px;
+}
+
+.back-to-top {
+    float: right;
+    font-size: 85%;
+    overflow: auto;
+}
+
+hr {
+    clear: both;
+}
+
+.created-by {
+    line-height: 20px;
+    padding: 10px 15px 10px;
+    font-size: 14px;
+    color: #777;
+}

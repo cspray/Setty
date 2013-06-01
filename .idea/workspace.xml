@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dbad26cc-f043-4f67-965a-5039e51b423a" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitmodules" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/LICENSE.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ROADMAP.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/compass/index.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ClassLoader" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/AbstractEnumValue.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/Builder/EnumBuilder.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/Builder/EnumValueBuilder.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/Builder/SettyEnumBuilder.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/Builder/SettyEnumValueBuilder.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/Enum.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/Enum/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/EnumValue.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/Exception/EnumBlueprintInvalidException.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/Exception/EnumNotFoundException.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Setty/Exception/EnumValueNotFoundException.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/SettyTest/Builder/SettyEnumBuilderTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/SettyTest/Builder/SettyEnumValueBuilderTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/SettyTest/bootstrap.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/SettyTest/travis_configuration.xml" afterPath="" />
+    </list>
+    <ignored path="setty_enum.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <file path="/.gitignore" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369665919443" ignored="false" />
+    <file path="/README.md" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369891221114" ignored="false" />
+    <file path="/LICENSE.md" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369667191662" ignored="false" />
+    <file path="/Dummy.txt" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1370000544184" ignored="false" />
+    <file path="/Builder.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369702660067" ignored="false" />
+    <file path="/AbstractEnum.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369917518557" ignored="false" />
+    <file path="/EnumNotFoundException.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369758412751" ignored="false" />
+    <file path="/EnumBlueprintInvalidException.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369671454868" ignored="false" />
+    <file path="/Enum.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369703194517" ignored="false" />
+    <file path="/a.dummy" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369891861437" ignored="false" />
+    <file path="/EnumValue.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369673816344" ignored="false" />
+    <file path="/EnumBuilder.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369702688411" ignored="false" />
+    <file path="/EnumBuilderTest.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369702771474" ignored="false" />
+    <file path="/bootstrap.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369677608622" ignored="false" />
+    <file path="/BaseEnumValue.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369759891324" ignored="false" />
+    <file path="/EnumValueBuilder.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369711065121" ignored="false" />
+    <file path="/ROADMAP.md" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369889192020" ignored="false" />
+    <file path="/SettyEnumValueBuilder.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369798696245" ignored="false" />
+    <file path="/SettyEnumValueBuilderTest.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369798063250" ignored="false" />
+    <file path="/EnumValueNotFoundException.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369758423638" ignored="false" />
+    <file path="/.travis.yml" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369785696432" ignored="false" />
+    <file path="/EnumValidator.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369845022069" ignored="false" />
+    <file path="/EnumBlueprintStore.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369885359047" ignored="false" />
+    <file path="/SettyEnumBuilder.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369932426674" ignored="false" />
+    <file path="/SettyEnumBuilderTest.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369932371844" ignored="false" />
+    <file path="/EnumBlueprintValidator.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369886461587" ignored="false" />
+    <file path="/AbstractEnumTest.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369917323041" ignored="false" />
+    <file path="/index.php" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369933136821" ignored="false" />
+    <file path="/index.html" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1370019021333" ignored="false" />
+    <file path="/setty-main.css" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1370017235348" ignored="false" />
+    <file path="/font-awesome.min.css" changelist="dbad26cc-f043-4f67-965a-5039e51b423a" time="1369965949638" ignored="false" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="setty_enum" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="43" selection-start="898" selection-end="898" vertical-scroll-proportion="0.79646015">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="32" selection-start="673" selection-end="673" vertical-scroll-proportion="-7.3846154">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="font-awesome.min.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/font-awesome.min.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="27" column="231" selection-start="1364" selection-end="1364" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="setty-main.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/setty-main.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="81" column="4" selection-start="1134" selection-end="1134" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/Setty/Builder/EnumStore.php" />
+        <option value="$PROJECT_DIR$/src/Setty/Builder/EnumBlueprintStore.php" />
+        <option value="$PROJECT_DIR$/src/Setty/Builder/EnumValueBuilder.php" />
+        <option value="$PROJECT_DIR$/src/Setty/Builder/EnumBlueprintValidator.php" />
+        <option value="$PROJECT_DIR$/ROADMAP.md" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/tests/SettyTest/AbstractEnumTest.php" />
+        <option value="$PROJECT_DIR$/src/Setty/AbstractEnum.php" />
+        <option value="$PROJECT_DIR$/tests/SettyTest/Builder/SettyEnumBuilderTest.php" />
+        <option value="$PROJECT_DIR$/src/Setty/Builder/SettyEnumBuilder.php" />
+        <option value="$PROJECT_DIR$/examples/compass/index.php" />
+        <option value="$PROJECT_DIR$/src/Setty/Builder/EnumBuilder.php" />
+        <option value="$PROJECT_DIR$/css/font-awesome.min.css" />
+        <option value="$PROJECT_DIR$/css/setty-main.css" />
+        <option value="$PROJECT_DIR$/docs/index.html" />
+        <option value="$PROJECT_DIR$/index.html" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="5.4.11">
+    <include_path>
+      <path value="" />
+      <path value="/usr/lib/php" />
+      <path value="/usr/lib/php/pear/PHPUnit" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="22" />
+    <option name="width" value="1920" />
+    <option name="height" value="874" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="1" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents ProjectPane="true" />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.jetbrains.php.config.PhpExternalLibrariesNodePatcher$PatchedExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="font" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="setty_enum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="FullScreen" value="false" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/js" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/js" />
+      <recent name="$PROJECT_DIR$/css" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/Setty/Builder" />
+      <recent name="$PROJECT_DIR$/src/Setty" />
+    </key>
+  </component>
+  <component name="RunManager" selected="PHPUnit.SettyEnumBuilderTest">
+    <configuration default="false" name="SettyTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner directory="$PROJECT_DIR$/tests/SettyTest" />
+      <RunnerSettings RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="EnumBuilderTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="SettyTest\Builder\EnumBuilderTest" file="$PROJECT_DIR$/tests/SettyTest/Builder/EnumBuilderTest.php" scope="Class" />
+      <RunnerSettings RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SettyEnumBuilderTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="SettyTest\Builder\SettyEnumBuilderTest" file="$PROJECT_DIR$/tests/SettyTest/Builder/SettyEnumBuilderTest.php" scope="Class" />
+      <RunnerSettings RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SettyEnumValueBuilderTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="SettyTest\Builder\SettyEnumValueBuilderTest" file="$PROJECT_DIR$/tests/SettyTest/Builder/SettyEnumValueBuilderTest.php" scope="Class" />
+      <RunnerSettings RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="AbstractEnumTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="SettyTest\AbstractEnumTest" file="$PROJECT_DIR$/tests/SettyTest/AbstractEnumTest.php" scope="Class" />
+      <RunnerSettings RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="PHPUnit.SettyTest" />
+      <item index="1" class="java.lang.String" itemvalue="PHPUnit.EnumBuilderTest" />
+      <item index="2" class="java.lang.String" itemvalue="PHPUnit.SettyEnumBuilderTest" />
+      <item index="3" class="java.lang.String" itemvalue="PHPUnit.SettyEnumValueBuilderTest" />
+      <item index="4" class="java.lang.String" itemvalue="PHPUnit.AbstractEnumTest" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="PHPUnit.SettyEnumBuilderTest" />
+        <item index="1" class="java.lang.String" itemvalue="PHPUnit.AbstractEnumTest" />
+        <item index="2" class="java.lang.String" itemvalue="PHPUnit.SettyTest" />
+        <item index="3" class="java.lang.String" itemvalue="PHPUnit.SettyEnumValueBuilderTest" />
+        <item index="4" class="java.lang.String" itemvalue="PHPUnit.EnumBuilderTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dbad26cc-f043-4f67-965a-5039e51b423a" name="Default" comment="" />
+      <created>1369664145749</created>
+      <updated>1369664145749</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="22" width="1920" height="874" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28228387" sideWeight="0.6710875" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32891247" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33289126" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="true" />
+    <option name="myTodoPanelSettings">
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
+    </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
+    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
+    <option name="LIMIT_HISTORY" value="true" />
+    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/font-awesome.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="231" selection-start="1364" selection-end="1364" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/setty-main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="20" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/bootstrap.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="886" selection-start="1003" selection-end="1003" vertical-scroll-proportion="0.29288703" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/font-awesome.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="231" selection-start="1364" selection-end="1364" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/setty-main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="4" selection-start="1134" selection-end="1134" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="32" selection-start="673" selection-end="673" vertical-scroll-proportion="-7.3846154">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="43" selection-start="898" selection-end="898" vertical-scroll-proportion="0.79646015">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Setty &mdash; Typesafe Enums in PHP</title>
+        <link href="/Setty/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
+        <link href="/Setty/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="/Setty/css/setty-main.css" rel="stylesheet" type="text/css" />
+        <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    </head>
+    <body>
+        <div id="container" class="container">
+            <div id="header">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <a class="brand" href="/Setty">Setty</a>
+                        <ul class="nav">
+                            <li><a href="/Setty/docs">docs</a></li>
+                            <li><a href="/Setty/license">license</a></li>
+                            <li class="divider-vertical"></li>
+                            <li class="pull-right"><a href="http://github.com/cspray/Setty"><i class="icon-github"></i> github</a></li>
+                        </ul>
+                        <span class="pull-right created-by">Created by <a href="http://cspray.github.io">Charles Sprayberry</a></span>
+                    </div>
+                </div>
+            </div>
+            <div id="body">
+                <div id="welcome-panel">
+                    <p class="introduction-tag">Introducing&hellip;</p>
+                    <h1>Setty</h1>
+                    <p class="description">A PHP 5.4 library providing an API to dynamically create object types to act as typesafe enums.</p>
+                </div>
+
+                <div id="section-blurbs">
+                    <a class="block" href="#usage">
+                        <div class="blurb pull-left">
+                            <div class="title">
+                                Usage
+                            </div>
+                            <div class="description">
+                                <p>See some expected use cases and how to utilize the Setty API</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="block" href="#project-future">
+                        <div class="blurb pull-right">
+                            <div class="title">
+                                Project Future
+                            </div>
+                            <div class="description">
+                                <p>Learn about the future of Setty and plans for the library</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="block" href="#why-setty">
+                        <div class="blurb middle-blurb">
+                            <div class="title">
+                                Why?!
+                            </div>
+                            <div class="description">
+                                <p>Read about why we created Setty and why it might help your development</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <hr />
+
+                <div id="usage" class="content">
+                    <h2>Usage</h2>
+                    <p>Utilizing the library is quite simple. First, we're going to assume that you have some autoloading setup that complies with <a href="http://www.php-fig.org/psr/0/">PSR-0 autoloading standards</a> and can plug Setty autoloading into that. If not, take a look at the <a href="http://github.com/cspray/ClassLoader">cspray/ClassLoader</a> library that comes bundled with Setty as a git submodule.</p>
+
+                    <p>So, let's start off with Setty's "Hello World" example; creating a Compass enum.</p>
+                    <pre class="prettyprint">
+&lt;?php
+
+use \Setty\Enum;
+use \Setty\Builder;
+
+// Create the Builder objects exposing the primary Setty functionality
+$EnumValueBuilder = new Builder\SettyEnumValueBuilder();
+$EnumBuilder = new Builder\SettyEnumBuilder($EnumValueBuilder);
+
+$compassBlueprint = [
+    'name' => 'Compass',
+    'constants' => [
+        'NORTH' => 'north',
+        'SOUTH' => 'south',
+        'EAST' => 'east',
+        'WEST' => 'west'
+    ]
+];
+$EnumBuilder->storeFromArray($compassBlueprint);
+$CompassEnum = $EnumBuilder->buildStored('Compass');
+
+echo 'We could go ' . $CompassEnum::NORTH() . '&lt;br /&gt;';
+echo 'Or we could travel ' . Enum\CompassEnum::SOUTH() . '&lt;br /&gt;';
+echo get_class($CompassEnum) . '&lt;br /&gt;';
+echo get_class(Enum\CompassEnum::NORTH()) . '&lt;br /&gt;';
+
+?>
+
+//output
+We could go north
+Or we could travel south
+Setty\Enum\CompassEnum
+Setty\Enum\Compass
+</pre>
+                    <p>In this example we have created a Compass enum that has four enum values associated to it; 'NORTH', 'SOUTH', 'EAST', 'WEST'. You can access these values by calling the name as a static method on the object returned from <code>$EnumBuilder</code>. That class will implement <code>\Setty\Enum</code> and, in our example, be of type <code>\Setty\Enum\CompassEnum</code>. Each of the values from these static method calls will return an instance implementing <code>\Setty\EnumValue</code> and, in our example, are of type <code>\Setty\Enum\Compass</code>. This <code>\Setty\Enum\Compass</code> can be used as a typehint for method calls and when cast as a string represents one of the values associated to our enum.</p>
+
+                    <p class="back-to-top"><a href="#header">Back to the top</a></p>
+                </div>
+
+                <hr />
+
+                <div id="why-setty" class="content">
+                    <h2>Why Setty</h2>
+
+                    <p>Originally Setty came about as a thought experiment. I was meddling around with some Java and discovered the concept of typesafe enums. With my work on <a href="http://github.com/cspray/SprayFire">SprayFire</a> this seemed like it could be a useful feature to have in PHP. I started to think about how I would implement it and my first design was a bunch of inheritance and manually settuping constants and other boilerplate&hellip;every time you wanted to create an enum. Yuk.</p>
+                    <p>So I got to thinking about it more and decided to write a library that generates the code for creating the boilerplate automagically. You give some configuration values and you get back some classes and instantiations to represent that configuration as a typesafe enum. Not only did I get to do something cool, autogenerate working code, but I also proved my concept for typesafe enums in PHP.</p>
+
+                    <p>Why should <strong>you</strong> use Setty? Well, I think typehinting is more expressive and safer. Scalar types can't be typehinted  in PHP and can't be relied upon the same way as objects. But, most importantly, typehints are just more expressive and communicate more information with less. Let's take a look at an example:</p>
+
+                    <pre class="prettyprint">
+&lt;?php
+
+// to know what direction you're allowed to move you need to know internal implemenation
+// of move and what constant values they are expecting
+function move($direction) {
+    // move in $direction
+}
+
+// better. now we're explicitly communicating that you need to move in a cardinal direction
+// no doc lookups necessary
+function move(Enum\Compass $Compass) {
+    // move in Compass direction
+}
+
+// even better. now we're explicitly communicating that you need to move in a cardinal
+// direction but that you can also provide just 1 of 4 values, likely: NORTH, SOUTH, EAST, WEST
+// again no doc lookups are necessary to communicate this intent; typehint communicates it for us
+function move(Enum\FourPointCompass $Compass) {
+    // move north, south, east or west
+}
+</pre>
+                    <p class="back-to-top"><a href="#header">Back to the top</a></p>
+                </div>
+
+                <hr />
+
+                <div id="project-future" class="content">
+                    <h2>Project Future</h2>
+                    <p>Right now the project is simply a proof of concept that a very simple implementation for typesafe enums is possible. I feel strongly that we've accomplished that goal. While comparing <code>\Setty\EnumValue</code> objects by casting as a string feels a little bit hacky this is not the only way to use the library and you can still achieve typehinting safety if you compare by string.</p>
+                    <p>To implement this proof of concept we <strong>had to make use of the eval construct</strong>! While we could have come up with some complicated way to inherit objects and have some convoluted object graph that manages everything we really didn't want to do that. Our decision to implement this using eval boils down to:
+                    <ul>
+                        <li>We wanted to provide an API for creating enums, not a way to complicate your object inheritance.</li>
+                        <li>To limit the need for you to create all that boilerplate code requires that we dynamically create new class types at runtime. In PHP this means eval.</li>
+                        <li>Writing code that writes code is just plain cool!</li>
+                    </ul>
+                    </p>
+
+                    <p>Right now, the project's future is in a fairly volatile state. Originally the intent of this library was to be a proof of concept. With that being proven the use of this library in a production environment is still highly questionable. Clearly in its current state that is not possible with the use of eval. However, this library can be easily refactored to add functionality removing the need for eval; instead you would generate your enums, Setty code would be output and then those pre-generated files can be used in your production environment. This would give you typesafe enums with no eval necessary.</p>
+
+                    <p>Whether or not this gets implemented is gonna depend on the response of the community to Setty. I got started wanting to implement typesafe enums in PHP while playing around with Java. Whether or not they're useful enough in a dynamic typed language like PHP is probably debatable. If there's a good response from the community and other developers are interested in the idea I'll gladly spend the time to make this library production ready.</p>
+                    <p>If you like Setty and want to see it grow to something more just fork or star the repo on GitHub. Send a tweet to <a href="https://twitter.com/charlesspray">@charlesspray</a> on Twitter using the <code>#Setty</code> hashtag. Just let me know that you're interested and we'll make Setty even more awesome.</p>
+
+                    <p>Otherwise it's still a pretty cool proof of concept&hellip; :P</p>
+
+                    <p class="back-to-top"><a href="#header">Back to the top</a></p>
+                </div>
+
+            </div>
+            <div id="footer">
+
+            </div>
+        </div>
+    </body>
+</html>
