@@ -94,8 +94,8 @@ $compassBlueprint = [
 $EnumBuilder->storeFromArray($compassBlueprint);
 $CompassEnum = $EnumBuilder->buildStored('Compass');
 
-echo 'We could go ' . $CompassEnum::NORTH() . '&lt;br /&gt;';
-echo 'Or we could travel ' . Enum\CompassEnum::SOUTH() . '&lt;br /&gt;';
+echo 'We could go ' . $CompassEnum::NORTH . '&lt;br /&gt;'; // string constants
+echo 'Or we could travel ' . Enum\CompassEnum::SOUTH() . '&lt;br /&gt;'; // object value from __callStatic(), that object cast to string
 echo get_class($CompassEnum) . '&lt;br /&gt;';
 echo get_class(Enum\CompassEnum::NORTH()) . '&lt;br /&gt;';
 
